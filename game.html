@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the Heart Game 💖</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', sans-serif;
+      background: #fff0f5;
+      text-align: center;
+    }
+    h1 {
+      color: #ff1493;
+    }
+    #score {
+      font-size: 24px;
+      margin: 10px;
+    }
+    .heart {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+      background-size: contain;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Catch the 💖</h1>
+<div id="score">Score: 0</div>
+
+<script>
+  let score = 0;
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    
+    const x = Math.random() * (window.innerWidth - 40);
+    const y = Math.random() * (window.innerHeight - 40);
+    
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`;
+
+    heart.onclick = function () {
+      score++;
+      document.getElementById("score").innerText = `Score: ${score}`;
+      heart.remove();
+      createHeart();
+    };
+
+    document.body.appendChild(heart);
+
+    // Auto remove and respawn heart after 2 seconds
+    setTimeout(() => {
+      if (document.body.contains(heart)) {
+        heart.remove();
+        createHeart();
+      }
+    }, 2000);
+  }
+
+  // Start the game by spawning the first heart
+  createHeart();
+</script>
+
+</body>
+</html>
